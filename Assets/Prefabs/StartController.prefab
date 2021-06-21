@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 4055636373102356951}
   - component: {fileID: 4055636373102356950}
   m_Layer: 0
-  m_Name: StartTr1
+  m_Name: StartController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
