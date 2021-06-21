@@ -212,21 +212,20 @@ public class PlayerController : MonoBehaviour
             obstacleEscape = false;
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collision)
     {
         if (obstacle.direction == -1)
         {
             obstacleEscape = true;
             if (!fly)
             {
-                playerAnimation.SetBool("isDown", true);
                 playerAnimation.SetFloat("DirectionDown", -1);
                 playerAnimation.Play("Down");
             }
         }
         else
         {
-            playerAnimation.SetBool("isUp",true);
+            //playerAnimation.SetBool("isUp",true);
             playerAnimation.SetFloat("DirectionUp", -1);
             playerAnimation.Play("Up");
         }
