@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Animator playerAnimation;
+    private Obstacle obstacle;
     public float speed = 10f;
     float currentSpeed = 0f;
     float gravity = 20;
@@ -21,7 +20,6 @@ public class PlayerController : MonoBehaviour
     public int currentLine = 2;
     public bool obstacleCol = false;
     bool obstacleEscape = true;
-    Obstacle obstacle;
     float obstacleColX;
 
     float xAx = 0;
