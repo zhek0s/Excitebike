@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     public float speed = 10f;
     float currentSpeed = 0f;
     float gravity = 20;
-    float flyForce = 0f;
     public bool canRun = false;
     public bool turnLeft = false;
     public bool turnRight = false;
@@ -21,7 +20,6 @@ public class PlayerController : MonoBehaviour
     float[] linesOffset = { 1.5f, 0.5f, 0f, -0.5f };
     public int currentLine = 2;
     public bool obstacleCol = false;
-    float offsetY = 0f;
     bool obstacleEscape = true;
     Obstacle obstacle;
     float obstacleColX;
@@ -32,6 +30,10 @@ public class PlayerController : MonoBehaviour
     {
         SetInitionReferences();
         transform.position = (new Vector3(linesOffset[currentLine - 1], lines[currentLine - 1]));
+    }
+    void SetInitionReferences()
+    {
+        playerAnimation = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -87,14 +89,27 @@ public class PlayerController : MonoBehaviour
                     {
                         playerAnimation.Play("Down", -1, obstacle.minDownAnim / 4f * Mathf.Min(1, transform.position.x - obstacleColX + 1));
                     }
-                    if (obstacle.direction == -1 && yAx > 0)
+                    if (obstacle.direction == -1 && yAx > (-1*Mathf.Lerp(obstacle.endY,0,((transform.position.x-obstacleColX)/obstacle.length))+lines[currentLine-1]))
                     {
                         fly = true;
                     }
                     else
                     {
-                        yAx = obstacle.endY / obstacle.length * currentSpeed;
-                        xAx = obstacle.length / Mathf.Abs(obstacle.endY) * currentSpeed;
+                        float k = 1f;
+                        if (Mathf.Abs(obstacle.endY / obstacle.length) != 1)
+                        {
+                            if (obstacle.endY > obstacle.length)
+                            {
+                                k = obstacle.length / obstacle.endY;
+                            }
+                            else
+                            {
+                                k = obstacle.endY / obstacle.length;
+                            }
+                        }
+                        k = Mathf.Abs(k);
+                        yAx = k * obstacle.endY * currentSpeed * (obstacle.force/10);
+                        xAx = k * obstacle.length * currentSpeed * (obstacle.force/10);
                     }
                 }
                 else
@@ -154,89 +169,11 @@ public class PlayerController : MonoBehaviour
             transform.Translate(new Vector3(xAx*Time.deltaTime, yAx*Time.deltaTime, 0));
         }
 
-        //if (canRun)
-        // {
-        //     isRunning = s;
-        //     if (!fly)
-        //     {
-        //         if (s)
-        //         {
-        //             if (currentSpeed < speed)
-        //             {
-        //                 currentSpeed += speed * Time.deltaTime;
-        //                 playerAnimation.SetBool("isRunning", true);
-        //             }
-        //         }
-        //         else
-        //         {
-        //             if (currentSpeed > 0)
-        //             {
-        //                 currentSpeed -= speed * Time.deltaTime;
-        //             }
-        //             else
-        //             {
-        //                 currentSpeed = 0;
-        //                 playerAnimation.SetBool("isRunning", false);
-        //             }
-        //         }
-        //     }
-        //     transform.position += new Vector3(currentSpeed * Time.deltaTime, 0, 0);
-        //     if (obstacleCol)
-        //     {
-        //         if (!fly)
-        //         {
-        //             if (obstacle.direction == 1)
-        //             {
-        //                 playerAnimation.Play("Up", -1, obstacle.minUpAnim / 6f * Mathf.Min(1, transform.position.x - obstacleColX + 1));
-        //             }
-        //             else
-        //             {
-        //                 playerAnimation.Play("Down", -1, obstacle.minDownAnim / 4f * Mathf.Min(1, transform.position.x - obstacleColX + 1));
-        //             }
-        //             float y = offsetY + lines[currentLine - 1] + obstacle.direction * (obstacle.endY) * Mathf.Min((Mathf.Max(transform.position.x - obstacleColX, 0)) / (obstacle.length - 1), 1);
-        //             if ((y == lines[currentLine - 1] + obstacle.endY) && currentSpeed * 2 > speed)
-        //             {
-        //                 fly = true;
-        //                 flyForce = (currentSpeed - speed / 2) * obstacle.force;
-        //             }
-        //             transform.position = new Vector3(transform.position.x, y, transform.position.z);
-        //         }
-        //     }
-        //     else
-        //     {
-        //         if (!obstacleEscape)
-        //         {
-        //             offsetY = obstacle.endY;
-        //         }
-        //     }
-        //     if (fly)
-        //     {
-        //         float y;
-        //         if (transform.position.y < offsetY + lines[currentLine - 1])
-        //         {
-        //             y = offsetY + lines[currentLine - 1];
-        //             fly = false;
-        //         }
-        //         else
-        //         {
-        //             y = transform.position.y + flyForce/10 * Time.deltaTime;
-        //             flyForce = flyForce - speed*15 * Time.deltaTime;
-        //         }
-        //         transform.position = new Vector3(transform.position.x, y, transform.position.z);
-        //     }
-        // }
-
-
-
         playerAnimation.SetBool("turnLeft", turnLeft);
         playerAnimation.SetBool("turnRight", turnRight);
         playerAnimation.SetBool("win", win);
     }
 
-    void SetInitionReferences()
-    {
-        playerAnimation = GetComponent<Animator>();
-    }
 
     public void SetMinUp(int v)
     {
@@ -280,15 +217,19 @@ public class PlayerController : MonoBehaviour
         if (obstacle.direction == -1)
         {
             obstacleEscape = true;
-            playerAnimation.SetFloat("DirectionDown", -1);
-            playerAnimation.Play("Down");
+            if (!fly)
+            {
+                playerAnimation.SetBool("isDown", true);
+                playerAnimation.SetFloat("DirectionDown", -1);
+                playerAnimation.Play("Down");
+            }
         }
         else
         {
+            playerAnimation.SetBool("isUp",true);
             playerAnimation.SetFloat("DirectionUp", -1);
             playerAnimation.Play("Up");
         }
         obstacleCol = false;
-        //playerAnimation.Play("Run");
     }
 }

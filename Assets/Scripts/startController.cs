@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class startController : MonoBehaviour
+public class StartController : MonoBehaviour
 {
     public GameObject start1;
     public GameObject start2;

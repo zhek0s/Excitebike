@@ -2764,6 +2764,10 @@ PrefabInstance:
       propertyPath: startObj
       value: 
       objectReference: {fileID: 891473573}
+    - target: {fileID: 1538248795526738326, guid: 2b24056475229ef4a96b9616dce18cf5, type: 3}
+      propertyPath: startController
+      value: 
+      objectReference: {fileID: 891473573}
     - target: {fileID: 1538248795526738327, guid: 2b24056475229ef4a96b9616dce18cf5, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2876,7 +2880,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4055636373102356949, guid: 1c60bed60481f6048855ca8280a79908, type: 3}
       propertyPath: m_Name
-      value: StartTr1
+      value: StartController
       objectReference: {fileID: 0}
     - target: {fileID: 4055636373102356951, guid: 1c60bed60481f6048855ca8280a79908, type: 3}
       propertyPath: m_RootOrder

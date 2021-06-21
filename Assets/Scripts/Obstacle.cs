@@ -7,7 +7,7 @@ public class Obstacle : MonoBehaviour
     public float endY;
     public float length;
     public float direction;
-    public float force;
+    public float force=1;
     public int minUpAnim;
     public int minDownAnim;
 }
