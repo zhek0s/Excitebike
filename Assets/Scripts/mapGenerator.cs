@@ -74,11 +74,11 @@ public class MapGenerator : MonoBehaviour
         blocksPassed += prefabWidth[goName];
     }
     
-    private void GenerateMap(int prefabsLenght)
+    private void GenerateMap(int mapLenght)
     {
         var rnd = new Random();
         int count = minimumBlankBetweenRamps;
-        for (int i=0; i<prefabsLenght; i++)
+        for (int i=0; i<mapLenght; i++)
         {
             bool willBeBlank = true;
             if (count == 0)
