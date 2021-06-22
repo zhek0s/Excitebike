@@ -21,10 +21,28 @@ public class MapGenerator : MonoBehaviour
     
     void Awake()
     {
+        CheckIfSerializedFieldsSet();
         CollectWidth();
         GenerateStart();
         GenerateMap(lengthOfWay);
         GenerateFinish();
+    }
+
+    private void CheckIfSerializedFieldsSet()
+    {
+        string offensiveErrorMessagePrefix = "U dumbass! ";
+        if (lengthOfWay < 0 || minimumBlankBetweenRamps < 0)
+        {
+            throw new Exception(offensiveErrorMessagePrefix + "must be >0");
+        }
+        if (blocksPassed != 0)
+        {
+            throw new Exception(offensiveErrorMessagePrefix + "blocksPassed must be == 0");
+        }
+        if (startPrefab == null || finishPrefab == null || blankPrefab == null)
+        {
+            throw new Exception(offensiveErrorMessagePrefix + "check that you set prefabs");
+        }
     }
 
     private void CollectWidth()
