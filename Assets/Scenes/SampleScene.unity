@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  canRun: 1
+  canRun: 0
   turnLeft: 0
   turnRight: 0
   isRunning: 0
