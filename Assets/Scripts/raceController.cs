@@ -7,18 +7,16 @@ public class RaceController : MonoBehaviour
     public bool start = false;
     public bool win = false;
     public int toStart = 3;
-    public GameObject startController;
-    public GameObject player;
+    [SerializeField] MapGenerator mapGenerator;
+    [SerializeField] PlayerController playerController;
     private StartController startScr;
-    private PlayerController playerController;
-    private float time=0;
+    private float time = 0;
+    
     void Start()
     {
-        startScr = startController.GetComponent<StartController>();
-        playerController = player.GetComponent<PlayerController>();
+        startScr = mapGenerator.StartControllerGO.GetComponent<StartController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!start)

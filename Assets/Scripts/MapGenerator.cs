@@ -19,6 +19,8 @@ public class MapGenerator : MonoBehaviour
 
     public int blocksPassed = 0;
     
+    public GameObject StartControllerGO => instantiated[0];
+
     void Awake()
     {
         CheckIfSerializedFieldsSet();
