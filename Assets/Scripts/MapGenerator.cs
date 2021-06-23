@@ -56,21 +56,16 @@ public class MapGenerator : MonoBehaviour
         foreach (var ramp in rampsPrefabs)
         {
             prefabWidth[ramp.name + instantiatedGOSuffix] = Convert.ToInt32( ((RectTransform) ramp.transform).rect.width );
+            /*
+             *  Next commented code also works. BUT
+             *  GetComponent(s) is very heavy operation.
+             *  You should avoid it at all cost in while, Update, for, etc.
+             *  Better use [Serializefield] to component where possible.
+             *  In this case I use GetComponentsInChildren to avoid MonoBehaviour script in every prefab
+             *  Don't give a fuck at this stage :D
+             */
+              // prefabWidth[ramp.name + instantiatedGOSuffix] = ramp.GetComponentsInChildren<SpriteRenderer>().Length;
         }
-        
-        /*
-         *  Next commented code also works. BUT
-         *  GetComponent(s) is very heavy operation.
-         *  You should avoid it at all cost in while, Update, for, etc.
-         *  Better use [Serializefield] to component where possible.
-         *  In this case I use GetComponentsInChildren to avoid MonoBehaviour script in every prefab
-         *  Don't give a fuck at this stage :D
-         */
-        
-        // foreach (var ramp in rampsPrefabs)
-        // {
-        //     prefabWidth[ramp.name + instantiatedGOSuffix] = ramp.GetComponentsInChildren<SpriteRenderer>().Length;
-        // }
     }
 
     private void GenerateStart()
