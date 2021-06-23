@@ -173,6 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5406682237296298914}
+  - component: {fileID: 3483197042490734466}
   m_Layer: 0
   m_Name: StartController
   m_TagString: Untagged
@@ -202,6 +203,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 4, y: 7}
   m_Pivot: {x: 0.125, y: 0.5}
+--- !u!114 &3483197042490734466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4055636373102356949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f2c7fc5655fadf44926777a4acb05dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  start1: {fileID: 4055636374003954093}
+  start2: {fileID: 4055636373486774439}
+  start3: {fileID: 4055636373216274264}
+  secondsToStart: 2
+  isStarted: 0
+  currentState: 0
 --- !u!1 &4055636373214820774
 GameObject:
   m_ObjectHideFlags: 0
