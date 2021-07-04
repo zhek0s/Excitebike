@@ -71,7 +71,8 @@ public class StartController : MonoBehaviour
                 start2.SetActive(false);
                 start3.SetActive(true);
                 isStarted = true;
-                playerController.canRun = true;
+                if (playerController != null) 
+                    playerController.canRun = true;
                 break;
         }
     }

@@ -1,45 +1,37 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = System.Random;
 
 public class MapGenerator : MonoBehaviour
 {
-    [SerializeField] private int lengthOfWay = 20;
-    [SerializeField] private int minimumBlankBetweenRamps = 3;
-    
     [SerializeField] private GameObject startPrefab;
     [SerializeField] private GameObject finishPrefab;
-    [SerializeField] private GameObject blankPrefab;
-    [SerializeField] private List<GameObject> rampsPrefabs;
+    [SerializeField] protected GameObject blankPrefab;
+    [SerializeField] protected List<GameObject> rampsPrefabs;
+    
+    private protected readonly string offensiveErrorMessagePrefix = "U dumbass! ";
 
-    private Dictionary<string, int> prefabWidth = new Dictionary<string, int>();
+    private protected Dictionary<string, int> prefabWidth = new Dictionary<string, int>();
     
     private List<GameObject> instantiated = new List<GameObject>(); //TODO: replace with Queue<GameObject> ?
 
-    public int blocksPassed = 0;
+    public int blocksGenerated = 0;
     
     public GameObject StartControllerGO => instantiated[0];
-
-    void Awake()
+    public GameObject LastControllerGO => instantiated == null || instantiated.Count == 0 ? null : instantiated[instantiated.Count-1];
+    
+    private protected virtual void Awake()
     {
         CheckIfSerializedFieldsSet();
         CollectWidth();
         GenerateStart();
-        GenerateMap(lengthOfWay);
-        GenerateFinish();
     }
 
-    private void CheckIfSerializedFieldsSet()
+    private protected virtual void CheckIfSerializedFieldsSet()
     {
-        string offensiveErrorMessagePrefix = "U dumbass! ";
-        if (lengthOfWay < 0 || minimumBlankBetweenRamps < 0)
+        if (blocksGenerated != 0)
         {
-            throw new Exception(offensiveErrorMessagePrefix + "must be >0");
-        }
-        if (blocksPassed != 0)
-        {
-            throw new Exception(offensiveErrorMessagePrefix + "blocksPassed must be == 0");
+            throw new Exception(offensiveErrorMessagePrefix + "blocksGenerated must be == 0");
         }
         if (startPrefab == null || finishPrefab == null || blankPrefab == null)
         {
@@ -73,47 +65,31 @@ public class MapGenerator : MonoBehaviour
         InstantiateRoadMile(startPrefab);
     }
 
-    private void GenerateFinish()
+    protected void GenerateFinish()
     {
         InstantiateRoadMile(finishPrefab);
     }
     
-    private void InstantiateRoadMile(GameObject prefab)
+    protected GameObject InstantiateRoadMile(GameObject prefab, bool countAsBloscksGenerated = true)
     {
         var go = Instantiate(prefab, this.transform);
         var goName = go.name;
-        Vector2 originPos = go.transform.localPosition;
-        Vector2 newPos = new Vector2(originPos.x + blocksPassed, originPos.y);
+        Vector2 originPos = new Vector2();
+        if(LastControllerGO == null)
+            originPos = go.transform.localPosition;
+        else
+            originPos = LastControllerGO.transform.localPosition;
+        Vector2 newPos = originPos;
+        if (!countAsBloscksGenerated)
+            newPos = new Vector2(originPos.x, originPos.y);
+        else
+        {
+            newPos = new Vector2(originPos.x + blocksGenerated, originPos.y);
+            blocksGenerated += prefabWidth[goName];
+        }
         go.transform.SetPositionAndRotation(newPos, go.transform.rotation); //this is the only way to set position correctly
         instantiated.Add(go);
-        blocksPassed += prefabWidth[goName];
-    }
-    
-    private void GenerateMap(int mapLenght)
-    {
-        var rnd = new Random();
-        int count = minimumBlankBetweenRamps;
-        for (int i=0; i<mapLenght; i++)
-        {
-            bool willBeBlank = true;
-            if (count == 0)
-            {
-                willBeBlank = Convert.ToBoolean(rnd.Next(0, 2));
-            }
-            else
-            {
-                count--;
-            }
-            if (willBeBlank)
-            {
-                InstantiateRoadMile(blankPrefab);
-            }
-            else
-            {
-                InstantiateRoadMile(rampsPrefabs[rnd.Next(rampsPrefabs.Count)]);
-                count = minimumBlankBetweenRamps;
-            }
-        }
+        return go;
     }
 
     private void OnDestroy()
