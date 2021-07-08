@@ -14,7 +14,7 @@ public class RaceController : MonoBehaviour
     private float time=0;
     void Start()
     {
-        startScr = startController.GetComponent<StartController>();
+        startScr = GameObject.Find("StartController(Clone)").GetComponent<StartController>();
         playerController = player.GetComponent<PlayerController>();
     }
 
