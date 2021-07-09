@@ -248,9 +248,6 @@ MonoBehaviour:
   isFall: 0
   isGetUp: 0
   win: 0
-  fly: 0
-  currentLine: 2
-  obstacleCol: 0
 --- !u!61 &787559833
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -409,11 +406,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6152524229730389757, guid: 56d65eceab9624fa7a18ff1af2344c8d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6152524229730389757, guid: 56d65eceab9624fa7a18ff1af2344c8d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6152524229730389757, guid: 56d65eceab9624fa7a18ff1af2344c8d, type: 3}
       propertyPath: m_LocalPosition.z

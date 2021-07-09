@@ -80,12 +80,14 @@ public class MapGenerator : MonoBehaviour
         else
             originPos = LastControllerGO.transform.localPosition;
         Vector2 newPos = originPos;
-        if (!countAsBloscksGenerated)
-            newPos = new Vector2(originPos.x, originPos.y);
-        else
+        if (countAsBloscksGenerated)
         {
             newPos = new Vector2(originPos.x + blocksGenerated, originPos.y);
             blocksGenerated += prefabWidth[goName];
+        }
+        else
+        {
+            newPos = new Vector2(originPos.x, originPos.y);
         }
         go.transform.SetPositionAndRotation(newPos, go.transform.rotation); //this is the only way to set position correctly
         instantiated.Add(go);
