@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 934632080336790580}
   - component: {fileID: 6770920451235124755}
   m_Layer: 0
-  m_Name: Map
+  m_Name: AutoMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,5 +58,5 @@ MonoBehaviour:
   - {fileID: 4058249498239815869, guid: 3760a71f68b4c3a4281a34a1ce405d1e, type: 3}
   - {fileID: 6634092321324029998, guid: 1c3219431028a454692d248c2bcc0f36, type: 3}
   blocksGenerated: 0
-  lengthOfWay: 5
+  lengthOfWay: 25
   minimumBlankBetweenRamps: 3
