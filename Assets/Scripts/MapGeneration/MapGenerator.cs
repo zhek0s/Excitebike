@@ -69,26 +69,19 @@ public class MapGenerator : MonoBehaviour
     {
         InstantiateRoadMile(finishPrefab);
     }
-    
-    protected GameObject InstantiateRoadMile(GameObject prefab, bool countAsBloscksGenerated = true)
+
+    protected GameObject InstantiateRoadMile(GameObject prefab)
     {
         var go = Instantiate(prefab, this.transform);
         var goName = go.name;
         Vector2 originPos = new Vector2();
-        if(LastControllerGO == null)
+        if (LastControllerGO == null)
             originPos = go.transform.localPosition;
         else
             originPos = LastControllerGO.transform.localPosition;
         Vector2 newPos = originPos;
-        if (countAsBloscksGenerated)
-        {
-            newPos = new Vector2(blocksGenerated, originPos.y);
-            blocksGenerated += prefabWidth[goName];
-        }
-        else
-        {
-            newPos = new Vector2(originPos.x, originPos.y);
-        }
+        newPos = new Vector2(blocksGenerated, originPos.y);
+        blocksGenerated += prefabWidth[goName];
         go.transform.SetPositionAndRotation(newPos, go.transform.rotation); //this is the only way to set position correctly
         instantiated.Add(go);
         return go;

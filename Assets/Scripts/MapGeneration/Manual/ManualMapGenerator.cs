@@ -45,11 +45,11 @@ public class ManualMapGenerator : MapGenerator
         else
         {
             Debug.Log("aaa zalupa");
-
+            blocksGenerated -= prefabWidth[LastControllerGO.name];
             DestroyImmediate(LastControllerGO); // this destroys transform ?
             rampCode++;
             CheckRampCode(ref rampCode);
-            currentRamp = InstantiateRoadMile(rampsPrefabs[rampCode], false);
+            currentRamp = InstantiateRoadMile(rampsPrefabs[rampCode]);
             SetAlpha(LastControllerGO, 0.5f);
         }
     }
