@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ManualMapGenerator : MapGenerator
+public class ManualMapGenerator : MapGenerator//, IPointerDownHandler
 {
     [SerializeField] private Camera mainCamera;
 
@@ -12,62 +13,81 @@ public class ManualMapGenerator : MapGenerator
     private GameObject currentRamp;
 
     private bool selected = false;
+    private bool pressedWaitFinish = false;
+    private Coroutine finishCountdown = null;
     
     private void Update()
     {
         if (Input.GetKey(KeyCode.UpArrow))
         {
+            pressedWaitFinish = false;
             SelectPreviousRamp();
         }
         else if(Input.GetKey(KeyCode.DownArrow))
         {
+            pressedWaitFinish = false;
             SelectNextRamp();
         }
-        else if(Input.GetKey(KeyCode.Space))
+        else if (Input.GetKey(KeyCode.Space))
         {
+            pressedWaitFinish = false;
             Paste();
+        }
+        else if(Input.GetKey(KeyCode.RightArrow))
+        {
+            pressedWaitFinish = true;
+            if(currentRamp== null || (currentRamp!=null && !currentRamp.name.Equals(finishPrefab.name+"(Clone)")))
+                SelectPasteBlank();
+            if (finishCountdown == null)
+                finishCountdown = StartCoroutine(FinishCoroutine());
         }
     }
 
+    IEnumerator FinishCoroutine()
+    {
+        yield return new WaitForSeconds(1.5f);
+        if(pressedWaitFinish)
+            SelectRamp(finishPrefab);
+        finishCountdown = null;
+    }
+    
     private void SelectNextRamp()
+    {
+        rampCode++;
+        CheckRampCode(ref rampCode);
+        SelectRamp(rampsPrefabs[rampCode]);
+    }
+
+    private void SelectPreviousRamp()
+    {
+        rampCode--; 
+        CheckRampCode(ref rampCode);
+        SelectRamp(rampsPrefabs[rampCode]);
+    }
+    
+    private void SelectPasteBlank()
+    {
+        rampCode = 0;
+        SelectRamp(blankPrefab);
+        StartCoroutine(MoveCamera());
+    }
+
+    private void SelectRamp(GameObject prefab)
     {
         if(!selected && currentRamp != null)
             DestroyImmediate(LastControllerGO);
         if(!selected)
         {
-            currentRamp = InstantiateRoadMile(rampsPrefabs[rampCode]);
             StartCoroutine(MoveCamera());
             selected = true;
-            rampCode++;
-            CheckRampCode(ref rampCode);
-            SetAlpha(LastControllerGO, 0.5f);
         }
         else
         {
-            Debug.Log("aaa zalupa");
             blocksGenerated -= prefabWidth[LastControllerGO.name];
-            DestroyImmediate(LastControllerGO); // this destroys transform ?
-            rampCode++;
-            CheckRampCode(ref rampCode);
-            currentRamp = InstantiateRoadMile(rampsPrefabs[rampCode]);
-            SetAlpha(LastControllerGO, 0.5f);
+            DestroyImmediate(LastControllerGO); // this destroys transform !!
         }
-    }
-
-    private void SelectPreviousRamp()
-    {
-        // if(!selected && currentRamp != null)
-        //     DestroyImmediate(LastControllerGO);
-        // if(!selected)
-        // {
-        //     selected = true;
-        //     rampCode--;
-        //     CheckRampCode(ref rampCode);
-        //     currentRamp = rampsPrefabs[rampCode];
-        //     StartCoroutine(MoveCamera());
-        //     InstantiateRoadMile(currentRamp,false);
-        //     SetAlpha(LastControllerGO, 0.5f);
-        // }
+        currentRamp = InstantiateRoadMile(prefab);
+        SetAlpha(LastControllerGO, 0.5f);
     }
     
     private IEnumerator MoveCamera()
@@ -78,8 +98,8 @@ public class ManualMapGenerator : MapGenerator
         {
             i++;
             // mainCamera.transform.SetPositionAndRotation(new Vector3(origin.x + ((RectTransform) currentRamp.transform).rect.width, origin.y, origin.z), mainCamera.transform.rotation);
-            Debug.Log(currentRamp.name);
-            mainCamera.transform.SetPositionAndRotation(new Vector3(origin.x + prefabWidth[currentRamp.name], origin.y, origin.z), mainCamera.transform.rotation);
+            // mainCamera.transform.SetPositionAndRotation(new Vector3(origin.x + prefabWidth[currentRamp.name], origin.y, origin.z), mainCamera.transform.rotation);
+            mainCamera.transform.SetPositionAndRotation(new Vector3(blocksGenerated, origin.y, origin.z), mainCamera.transform.rotation);
             yield return null;
         }
     }
@@ -105,23 +125,13 @@ public class ManualMapGenerator : MapGenerator
     private void Paste()
     {
         selected = false;
+        if (currentRamp != null && !currentRamp.name.Equals(finishPrefab.name + "(Clone)"))
+        {
+            SaveJson();
+            Debug.LogWarning("GreatSuccess");
+        }
         currentRamp = null;
         SetAlpha(LastControllerGO, 1f);
-    }
-    
-    private void PasteNewRamp()
-    {
-        InstantiateRoadMile(currentRamp);
-    }
-
-    private void PasteBlank()
-    {
-        InstantiateRoadMile(blankPrefab);
-    }
-
-    private void PasteFinish()
-    {
-        GenerateFinish();
     }
 
     #region Zhek0s Task TODO

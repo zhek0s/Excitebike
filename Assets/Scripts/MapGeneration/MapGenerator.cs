@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject startPrefab;
-    [SerializeField] private GameObject finishPrefab;
+    [SerializeField] protected GameObject finishPrefab;
     [SerializeField] protected GameObject blankPrefab;
     [SerializeField] protected List<GameObject> rampsPrefabs;
     
