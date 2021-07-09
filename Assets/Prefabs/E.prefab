@@ -125,9 +125,9 @@ MonoBehaviour:
   endY: -2
   length: 1
   direction: -1
-  force: 0
+  force: 10
   minUpAnim: 0
-  minDownAnim: 2
+  minDownAnim: 3
 --- !u!1 &6634092321324029998
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +373,6 @@ MonoBehaviour:
   endY: 2
   length: 1
   direction: 1
-  force: 0
-  minUpAnim: 2
+  force: 10
+  minUpAnim: 3
   minDownAnim: 0

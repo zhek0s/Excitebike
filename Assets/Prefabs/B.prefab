@@ -163,7 +163,7 @@ MonoBehaviour:
   endY: -1
   length: 1
   direction: -1
-  force: 0
+  force: 10
   minUpAnim: 0
   minDownAnim: 2
 --- !u!1 &2721722763902599874
@@ -291,7 +291,7 @@ MonoBehaviour:
   endY: 1
   length: 1
   direction: 1
-  force: 0
+  force: 10
   minUpAnim: 2
   minDownAnim: 0
 --- !u!1 &2721722763995804659

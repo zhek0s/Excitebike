@@ -559,7 +559,7 @@ MonoBehaviour:
   endY: -1.5
   length: 1.5
   direction: -1
-  force: 0
+  force: 10
   minUpAnim: 0
   minDownAnim: 2
 --- !u!1 &8869605057279866997
