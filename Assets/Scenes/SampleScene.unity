@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
-  canRun: 0
+  canRun: 1
   turnLeft: 0
   turnRight: 0
   isRunning: 0
@@ -251,6 +251,7 @@ MonoBehaviour:
   fly: 0
   currentLine: 2
   obstacleCol: 0
+  obstacleColX: 0
 --- !u!61 &787559833
 BoxCollider2D:
   m_ObjectHideFlags: 0

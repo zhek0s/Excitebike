@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public int currentLine = 2;
     public bool obstacleCol = false;
     bool obstacleEscape = true;
-    float obstacleColX;
+    public float obstacleColX;
 
     float xAx = 0;
     float yAx = 0;
@@ -164,6 +164,7 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
+            Debug.Log(new Vector3(xAx*Time.deltaTime, yAx*Time.deltaTime, 0));
             transform.Translate(new Vector3(xAx*Time.deltaTime, yAx*Time.deltaTime, 0));
         }
 
