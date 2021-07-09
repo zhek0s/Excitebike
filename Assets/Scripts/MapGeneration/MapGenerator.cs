@@ -82,7 +82,7 @@ public class MapGenerator : MonoBehaviour
         Vector2 newPos = originPos;
         if (countAsBloscksGenerated)
         {
-            newPos = new Vector2(originPos.x + blocksGenerated, originPos.y);
+            newPos = new Vector2(blocksGenerated, originPos.y);
             blocksGenerated += prefabWidth[goName];
         }
         else
