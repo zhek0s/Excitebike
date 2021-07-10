@@ -37,13 +37,13 @@ public class PlayerController : MonoBehaviour
         {
             bike.HandleKey("Run");
         }
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
-            bike.HandleKey("Up");
+            bike.HandleKey("Left");
         }
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.RightArrow))
         {
-            bike.HandleKey("Up");
+            bike.HandleKey("Right");
         }
         bike.UpdateMotion(Time.deltaTime, canRun, transform);
     }

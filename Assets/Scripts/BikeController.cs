@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BikeController
@@ -11,9 +12,14 @@ public class BikeController
 	private bool keyLeft = false;
 	private bool keyRight = false;
 	private bool keyRun = false;
+	private bool keyRunLock = false;
 	private bool keySpeedUp = false;
 
 	private bool fly;
+	private bool turnLeft = false;
+	private bool turnRight = false;
+	private float turnDirection = 0;
+	private float turnSpeed = 5f;
 	private bool cantFly = false;
 	private float currentSpeed = 0f;
 	private float speed;
@@ -51,20 +57,42 @@ public class BikeController
 	{
 		//#controll animation up bike
 		if (keyUp)
-		{
 			animator.HandleKey("Up");
-		}
 		if (keyDown)
-		{
 			animator.HandleKey("Down");
+		if (keyLeft && animator.CanChangeLine() && obstacleEscape)
+		{
+			turnLeft = true;
+			animator.SetBool("turnLeft",true);
+			//animator.HandleAction(BikeAnimator.action.turnLeft, 1);
+			keyRunLock = true;
 		}
+        else
+		{
+			animator.SetBool("turnLeft", false);
+			animator.DeactivateAction();
+			keyRunLock = false;
+        }
+		if (keyRight && animator.CanChangeLine() && obstacleEscape)
+		{
+			animator.SetBool("turnRight", true);
+			//animator.HandleAction(BikeAnimator.action.turnRight, 1);
+			turnRight = true;
+			keyRunLock = true;
+        }
+        else
+		{
+			animator.SetBool("turnRight", false);
+			animator.DeactivateAction();
+			keyRunLock = false;
+        }
 
 		//#Movement controll
 		if (canMove)
 		{
 			if (!fly)
 			{
-				if (keyRun)
+				if (keyRun && !keyRunLock)
 				{
 					if (currentSpeed < speed)
 					{
@@ -104,31 +132,79 @@ public class BikeController
                 else
 				{
 					xAx = currentSpeed;
-					if (!obstacleEscape)
+					if (!turnLeft && !turnRight && turnDirection==0)
 					{
-						if (transform.position.y <= lines[currentLine - 1] + Mathf.Abs(obstacle.endY))
+						if (!obstacleEscape)
 						{
-							transform.position = new Vector2(transform.position.x, lines[currentLine - 1] + Mathf.Abs(obstacle.endY));
+							if (transform.position.y <= lines[currentLine - 1] + Mathf.Abs(obstacle.endY))
+							{
+								transform.position = new Vector2(transform.position.x, lines[currentLine - 1] + Mathf.Abs(obstacle.endY));
+							}
+							else
+							{
+								fly = true;
+								animator.SetBool("isRunning", false);
+							}
 						}
 						else
 						{
-							fly = true;
-							animator.SetBool("isRunning", false);
+							if (transform.position.y <= lines[currentLine - 1])
+							{
+								transform.position = new Vector2(transform.position.x, lines[currentLine - 1]);
+								yAx = 0;
+							}
+							else
+							{
+								fly = true;
+								animator.SetBool("isRunning", false);
+							}
 						}
-					}
-					else
-					{
-						if (transform.position.y <= lines[currentLine - 1])
+                    }
+                    else
+                    {
+						if (turnLeft)
+							turnDirection = 1;
+						if (turnRight)
+							turnDirection = -1;
+                        if (turnDirection > 0)
+                        {
+                            if (currentLine == 1)
+                            {
+								turnDirection = 0;
+                            }
+                            else
+                            {
+                                if (transform.position.y < lines[currentLine - 2])
+                                {
+									transform.Translate(new Vector3(0,turnSpeed*dt,0));
+                                }
+                                else
+                                {
+									currentLine -= 1;
+									turnDirection = 0;
+                                }
+                            }
+                        }
+                        else
 						{
-							transform.position = new Vector2(transform.position.x, lines[currentLine - 1]);
-							yAx = 0;
-						}
-						else
-						{
-							fly = true;
-							animator.SetBool("isRunning", false);
-						}
-					}
+							if (currentLine == 4)
+                            {
+								turnDirection = 0;
+                            }
+                            else
+                            {
+								if (transform.position.y > lines[currentLine])
+								{
+									transform.Translate(new Vector3(0, -turnSpeed * dt, 0));
+								}
+								else
+								{
+									currentLine += 1;
+									turnDirection = 0;
+								}
+							}
+                        }
+                    }
 				}
 			}
 			else
@@ -177,6 +253,7 @@ public class BikeController
 		animator.SetFly(fly);
 		animator.UpdateAnimation(dt);
 		keyUp = keyDown = keyLeft = keyRight = keyRun = keySpeedUp = false;
+		turnLeft = turnRight = false;
 	}
 
 	public void HandleKey(string key)
@@ -209,6 +286,9 @@ public class BikeController
 
 	public void CollideObstacle(float colX, Obstacle obs)
 	{
+        currentLine +=Convert.ToInt32(turnDirection);
+		currentLine = Mathf.Max(1, Mathf.Min(4, currentLine));
+		turnDirection = 0;
 		dX = dY = 0;
 		obstacleCol = true;
 		obstacleColX = colX;
@@ -217,12 +297,12 @@ public class BikeController
 		{
 			obstacleEscape = false;
 			cantFly = false;
-			animator.HandleAction(BikeAnimator.action.wheelUp, 1);
+			//animator.HandleAction(BikeAnimator.action.wheelUp, 1);
 			animator.SetMinUpFrame(obstacle.minUpAnim);
         }
         else
         {
-			animator.HandleAction(BikeAnimator.action.wheelDown, 1);
+			//animator.HandleAction(BikeAnimator.action.wheelDown, 1);
 			animator.SetMinDownFrame(obstacle.minDownAnim);
         }
 		float q = Mathf.Atan2(Mathf.Abs(obstacle.endY), obstacle.length);
