@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8725282736380426889, guid: 939276ef85bcdb84dab35d65852b11c9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8725282736380426894, guid: 939276ef85bcdb84dab35d65852b11c9, type: 3}
       propertyPath: m_RootOrder
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1270feaacd0859a4fac612b8f9d24ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 10
   canRun: 0
   turnLeft: 0
   turnRight: 0
@@ -457,7 +457,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6152524229730389759, guid: 56d65eceab9624fa7a18ff1af2344c8d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770920451235124755, guid: 56d65eceab9624fa7a18ff1af2344c8d, type: 3}
+      propertyPath: lengthOfWay
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56d65eceab9624fa7a18ff1af2344c8d, type: 3}

@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BikeController
 {
 	private Vector3 position;
-	private Animator animator;
+	private BikeAnimator animator;
 	private Obstacle obstacle;
 
 	private bool keyUp = false;
@@ -31,10 +29,11 @@ public class BikeController
 	private float obstacleColX;
 	private float dX, dY;
 
+
 	public BikeController(Vector3 pos, Animator anim, float s)
 	{
 		position = pos;
-		animator = anim;
+		animator = new BikeAnimator(anim);
 
 		speed = s;
 
@@ -53,21 +52,11 @@ public class BikeController
 		//#controll animation up bike
 		if (keyUp)
 		{
-			animator.SetBool("isUp", true);
-			animator.SetFloat("DirectionUp", 1);
-		}
-		else
-		{
-			animator.SetFloat("DirectionUp", -1);
-			animator.SetBool("isUp", false);
+			animator.HandleKey("Up");
 		}
 		if (keyDown)
 		{
-			//add controll
-		}
-		else
-		{
-			//add controll
+			animator.HandleKey("Down");
 		}
 
 		//#Movement controll
@@ -97,21 +86,21 @@ public class BikeController
 				}
 				if (obstacleCol)
 				{
-					if (obstacle.direction == 1)
-					{
-						animator.Play("Up", -1, (obstacle.minUpAnim+1) / 7f * Mathf.Max(0, Mathf.Min(1, transform.position.x - obstacleColX)));
+                    if (transform.position.x - obstacleColX <= 1)
+                    {
+						animator.SetProcess(Mathf.Max(0, Mathf.Min(0.5f, transform.position.x - obstacleColX)*2));
 					}
-					else
-					{
-						animator.Play("Down", -1, (obstacle.minDownAnim+1) / 5f * Mathf.Max(0, Mathf.Min(1, transform.position.x - obstacleColX)));
-					}
-					yAx = obstacle.direction * dY * currentSpeed * (obstacle.force / 10);
-					xAx = dX * currentSpeed * (obstacle.force / 10);
-                    if (!cantFly && obstacle.direction == -1 && transform.position.y-0.05 > (Mathf.Lerp(Mathf.Abs(obstacle.endY), 0, ((transform.position.x - obstacleColX) / obstacle.length)) + lines[currentLine - 1]))
+                    if (!cantFly && obstacle.direction == -1 && transform.position.y > (Mathf.Lerp(Mathf.Abs(obstacle.endY), 0, ((transform.position.x - obstacleColX) / obstacle.length)) + lines[currentLine - 1]))
                     {
                         fly = true;
-                    }
-                }
+						animator.SetBool("isRunning", false);
+					}
+                    else
+					{
+						yAx = obstacle.direction * dY * currentSpeed * (obstacle.force / 10);
+						xAx = dX * currentSpeed * (obstacle.force / 10);
+					}
+				}
                 else
 				{
 					xAx = currentSpeed;
@@ -124,6 +113,7 @@ public class BikeController
 						else
 						{
 							fly = true;
+							animator.SetBool("isRunning", false);
 						}
 					}
 					else
@@ -136,6 +126,7 @@ public class BikeController
 						else
 						{
 							fly = true;
+							animator.SetBool("isRunning", false);
 						}
 					}
 				}
@@ -145,12 +136,25 @@ public class BikeController
 				yAx -= gravity * dt;
 				if (!obstacleEscape)
 				{
-					if (transform.position.y <= (Mathf.Lerp(Mathf.Abs(obstacle.endY), 0, ((transform.position.x - obstacleColX) / obstacle.length)) + lines[currentLine - 1]))
+					if (obstacle.direction == -1)
 					{
-						transform.position = new Vector2(transform.position.x, (Mathf.Lerp(Mathf.Abs(obstacle.endY), 0, ((transform.position.x - obstacleColX) / obstacle.length)) + lines[currentLine - 1]));
-						yAx = 0;
-						fly = false;
-						cantFly = true;
+						if (transform.position.y <= (Mathf.Lerp(Mathf.Abs(obstacle.endY), 0, ((transform.position.x - obstacleColX) / obstacle.length)) + lines[currentLine - 1]))
+						{
+							transform.position = new Vector2(transform.position.x, (Mathf.Lerp(Mathf.Abs(obstacle.endY), 0, ((transform.position.x - obstacleColX) / obstacle.length)) + lines[currentLine - 1]));
+							yAx = 0;
+							fly = false;
+							cantFly = true;
+						}
+					}
+                    else
+                    {
+						if (transform.position.y <= (Mathf.Lerp(0, Mathf.Abs(obstacle.endY), ((transform.position.x - obstacleColX) / obstacle.length)) + lines[currentLine - 1]))
+						{
+							transform.position = new Vector2(transform.position.x, (Mathf.Lerp(0, Mathf.Abs(obstacle.endY), ((transform.position.x - obstacleColX) / obstacle.length)) + lines[currentLine - 1]));
+							yAx = 0;
+							fly = false;
+							cantFly = true;
+						}
 					}
 				}
 				else
@@ -164,11 +168,14 @@ public class BikeController
 					else
 					{
 						fly = true;
+
 					}
 				}
 			}
 			transform.Translate(new Vector3(xAx * dt, yAx * dt, 0));
 		}
+		animator.SetFly(fly);
+		animator.UpdateAnimation(dt);
 		keyUp = keyDown = keyLeft = keyRight = keyRun = keySpeedUp = false;
 	}
 
@@ -209,10 +216,19 @@ public class BikeController
 		if (obstacle.direction == 1)
 		{
 			obstacleEscape = false;
-		}
+			cantFly = false;
+			animator.HandleAction(BikeAnimator.action.wheelUp, 1);
+			animator.SetMinUpFrame(obstacle.minUpAnim);
+        }
+        else
+        {
+			animator.HandleAction(BikeAnimator.action.wheelDown, 1);
+			animator.SetMinDownFrame(obstacle.minDownAnim);
+        }
 		float q = Mathf.Atan2(Mathf.Abs(obstacle.endY), obstacle.length);
 		dX = Mathf.Cos(q);
 		dY = Mathf.Sin(q);
+
 	}
 
 	public void EscapeCollide(Obstacle obs)
@@ -223,17 +239,11 @@ public class BikeController
 			{
 				obstacleEscape = true;
 				cantFly = false;
-				if (!fly)
-				{
-					animator.SetFloat("DirectionDown", -1);
-					animator.Play("Down");
-				}
+				animator.SetMinDownFrame(0);
 			}
 			else
 			{
-				//playerAnimation.SetBool("isUp",true);
-				animator.SetFloat("DirectionUp", -1);
-				animator.Play("Up");
+				animator.SetMinUpFrame(0);
 			}
 			obstacleCol = false;
 		}

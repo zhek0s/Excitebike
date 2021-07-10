@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.name + " : " + gameObject.name + " : " + Time.time);
         float colX = transform.position.x;// + transform.GetComponent<BoxCollider2D>().size.x;
         Obstacle obs = collision.gameObject.GetComponent<Obstacle>();
         bike.CollideObstacle(colX, obs);
