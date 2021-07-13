@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         {
             bike.HandleKey("Down");
         }
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.Z))
         {
             bike.HandleKey("Run");
         }

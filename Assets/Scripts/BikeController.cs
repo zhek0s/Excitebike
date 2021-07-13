@@ -69,9 +69,10 @@ public class BikeController
 		}
         else
 		{
-			animator.SetBool("turnLeft", false);
-			animator.DeactivateAction();
-			keyRunLock = false;
+				turnLeft = false;
+				animator.SetBool("turnLeft", false);
+				animator.DeactivateAction();
+				keyRunLock = false;
         }
 		if (keyRight && animator.CanChangeLine() && obstacleEscape)
 		{
@@ -82,9 +83,9 @@ public class BikeController
         }
         else
 		{
-			animator.SetBool("turnRight", false);
-			animator.DeactivateAction();
-			keyRunLock = false;
+				animator.SetBool("turnRight", false);
+				animator.DeactivateAction();
+				keyRunLock = false;
         }
 
 		//#Movement controll
@@ -321,11 +322,15 @@ public class BikeController
 				cantFly = false;
 				animator.SetMinDownFrame(0);
 			}
-			else
-			{
-				animator.SetMinUpFrame(0);
-			}
 			obstacleCol = false;
 		}
+		if(obstacle.direction == -1)
+        {
+			animator.SetMinDownFrame(0);
+        }
+        else
+        {
+			animator.SetMinUpFrame(0);
+        }
 	}
 }
