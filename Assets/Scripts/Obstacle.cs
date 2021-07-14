@@ -10,4 +10,7 @@ public class Obstacle : MonoBehaviour
     public float force=1;
     public float minUpAnim;
     public float minDownAnim;
+    public bool endRamp = false;
+    public bool canFall = false;
+    public bool[] interactLines = {true, true, true, true};
 }

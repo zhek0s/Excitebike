@@ -128,6 +128,9 @@ MonoBehaviour:
   force: 10
   minUpAnim: 0
   minDownAnim: 3
+  endRamp: 1
+  canFall: 0
+  interactLines: 01010101
 --- !u!1 &6634092321324029998
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,3 +379,6 @@ MonoBehaviour:
   force: 10
   minUpAnim: 3
   minDownAnim: 0
+  endRamp: 0
+  canFall: 0
+  interactLines: 01010101
