@@ -285,7 +285,7 @@ TextureImporter:
       213: 6417840601625462297
     second: General_93
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -306,6 +306,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -328,7 +329,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 24
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -344,6 +345,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -359,6 +361,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -2356,6 +2382,101 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      General_70: -5396766837470841202
+      GetUp1: -5026170667327611896
+      General_71: -8251299294941190948
+      General_62: 924438835576211567
+      General_63: 8786128244777847869
+      General_60: -798495229499287302
+      Idle: -7525882869776839469
+      General_5: 232854747835183443
+      General_43: -136063494390683925
+      General_48: 7509761880906721810
+      General_87: 8380199777917631467
+      GetUp3: 6360820135067221728
+      GetUp4: 5371203609680185996
+      Run1: 3433769500875684059
+      General_73: 5613091480160203055
+      General_92: 4256673201183802693
+      General_69: -924975302498889135
+      General_89: 900111509431407942
+      Down1: 7422330087579933422
+      Fall1: -2097224967589414909
+      General_52: 6431348707405744523
+      General_58: 4539347908561460534
+      General_84: -1162321769207061383
+      Up4: 2440272111937495713
+      General_36: 5244246733025557597
+      Fall3: 2438393261465058855
+      General_65: -5220408702227984566
+      General_37: 8484901819029786729
+      Fall2: 8140123880437787944
+      General_35: 5476514183638987143
+      GetUp6: 8056589661869501523
+      General_88: -1542625194498053119
+      General_93: 6417840601625462297
+      General_45: 933611723656689413
+      GetUp5: -3164176591511395183
+      General_64: -5243933947805855920
+      General_86: -8848507580102228291
+      General_21: -3571917874221884252
+      General_38: -6570436704413248614
+      General_66: 4349999799062175705
+      General_26: 8685174420496148340
+      General_75: -577318003679441076
+      General_31: -1179673837980150932
+      General_57: 6820860765278037809
+      General_40: -8286570090749518242
+      General_90: -4260842594826907528
+      General_56: 4465104517035043577
+      General_16: 7412320156082737785
+      Fall4: 6030144671638036906
+      Right: 4245935670168337686
+      General_78: 2876780780233993974
+      General_91: 4977323292686235078
+      General_46: 7065545117894458687
+      General_51: -3634223733653203223
+      Down2: 2002485112459718284
+      Run2: -6924314279609224711
+      General_44: -2010224843070847276
+      Left: -3293103902278803385
+      Down3: -1275831690435379319
+      GetUp2: 2958444561792577813
+      General_33: -8908956866984492280
+      General_41: 2906434501985925895
+      General_79: 5331379863764739612
+      Up2: 4154663363154342524
+      Down4: 329727896566720165
+      General_39: -3089786782331789874
+      General_32: -3887561850366871396
+      General_68: -9059523077942090439
+      General_83: -5475704293599002386
+      Up1: -2664751172987047288
+      General_53: -1830827125295761505
+      General_82: 368680626743448285
+      General_42: -814843816770034479
+      General_80: -717002964308614814
+      General_81: -2160670466835980834
+      General_74: -2499544473868168000
+      General_67: 5467715786854479663
+      General_85: 4814249818918988449
+      Up5: -8049741531878901084
+      General_55: 2136297084557131254
+      General_77: 829726159218220025
+      General_54: 715725396267838976
+      General_76: 3779916289628879260
+      BikeDown: -1885679296142026437
+      Up6: -8413060031499241702
+      General_72: 7041984175755660652
+      General_59: -1173778236382753114
+      Win: 7220670176229735587
+      General_49: -274928335780655954
+      General_61: -4865702469047424839
+      General_50: 7224279329904582631
+      General_47: -9213890727860376988
+      Up3: 5618972051590531670
+      General_34: 5180613132598416756
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

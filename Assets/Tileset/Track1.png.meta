@@ -339,7 +339,7 @@ TextureImporter:
       213: 403102886779134155
     second: Track1_111
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -360,6 +360,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -378,7 +379,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -398,9 +399,22 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 1
     textureFormat: -1
@@ -412,7 +426,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Standalone
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 1
     textureFormat: -1
@@ -2788,6 +2814,119 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Track1_26: -1415245120088577608
+      Track1_78: -1067162765748986521
+      Track1_95: -4957018619223058141
+      Track1_64: 7414686466898893353
+      Track1_91: -3644921069210825378
+      Track1_50: -2916297927906979956
+      Track1_43: 1123792140846452365
+      Track1_80: 7369920911602637986
+      Track1_84: 6477765381474395864
+      Track1_15: -5963595125073207112
+      Track1_67: -1777544456580845525
+      Track1_74: -1267429357393472567
+      Track1_61: 5943004644862602766
+      Track1_105: -6015121164879829899
+      Track1_60: 7883972585138225357
+      Track1_6: -8098243985596136115
+      Track1_52: 7260232840633386267
+      Track1_68: -8351219972407658035
+      Track1_33: -8521267218098968624
+      Track1_88: 847687909120818697
+      Track1_83: -1328506377544706158
+      Track1_109: -4091820921117125523
+      Track1_28: -7751846742815965390
+      Track1_8: -5338429113205586924
+      Track1_48: 750570444005958322
+      Track1_56: -5174927040083770804
+      Track1_76: 2881340511503395689
+      Track1_110: 3425916853450572938
+      Track1_86: -7115993381203971572
+      Track1_39: 4928398056697318096
+      Track1_111: 403102886779134155
+      Track1_44: 5038665519014660374
+      Track1_69: -3571047228612791081
+      Track1_72: -3952143869394118370
+      Track1_100: 3004515488210046378
+      Track1_46: -2453550379889622141
+      Track1_59: -6034509478918571191
+      Track1_92: -3615382600731999084
+      Track1_0: -2219927120860006312
+      Track1_19: 3842865537048275159
+      Track1_85: 3404191175498571545
+      Track1_17: -3765802049859538041
+      Track1_32: 4566978356940733244
+      Track1_63: 9150958338372016508
+      Track1_65: 3752901386161694912
+      Track1_47: -4205437861103891085
+      Track1_89: 2728326682025814439
+      Track1_55: -7919863905550889063
+      Track1_98: 2356601403078873347
+      Track1_1: 372618965665788504
+      Track1_24: -6222991274194611583
+      Track1_54: 8182209984918228201
+      Track1_16: 3163329620506350730
+      Track1_7: -2898065882443221211
+      Track1_22: 5727400870304880821
+      Track1_51: -5116674713541360510
+      Track1_87: -2591286441095051086
+      Track1_40: 4190925509541692273
+      Track1_14: -5407530225166601688
+      Track1_90: -9196862435045796224
+      Track1_11: 6714340919115633515
+      Track1_31: -4064832279354896111
+      Track1_18: 7002203220499755085
+      Track1_27: -7912259586157373357
+      Track1_9: -3478473923237640296
+      Track1_5: 8504364357366036714
+      Track1_4: -6115856931704862585
+      Track1_21: -6684385245655033801
+      Track1_57: -4189373072096721937
+      Track1_29: -5739978742668741982
+      Track1_102: -3624321526215781263
+      Track1_103: 1323659709946841469
+      Track1_3: -4089862023622206603
+      Track1_94: -5150361788983079640
+      Track1_35: 7865861310263512731
+      Track1_25: -4785097947293529573
+      Track1_45: -7808898115362813721
+      Track1_30: -7854527625332266719
+      Track1_93: 1974291270664113156
+      Track1_42: -7286069376876031540
+      Track1_12: -3800667499137804090
+      Track1_34: -2483598426164154528
+      Track1_37: 7038377606157653250
+      Track1_49: -3186189855788480450
+      Track1_82: -385787493863819332
+      Track1_97: -1486210252656140318
+      Track1_79: -5221786104922265952
+      Track1_10: -6810302484303576525
+      Track1_70: -4764547937132356309
+      Track1_66: 3711510489401114862
+      Track1_41: 5346044094705467220
+      Track1_71: 207154557996835894
+      Track1_81: -4113048145534150243
+      Track1_73: 4628730824413690394
+      Track1_53: 7489574558658033170
+      Track1_62: -3443193310066277990
+      Track1_13: 2001681301418846298
+      Track1_108: -555656530097581801
+      Track1_107: -6511716735966431786
+      Track1_75: 264318807301722327
+      Track1_20: -2145016714959843818
+      Track1_23: 4767510728027605208
+      Track1_77: 6358935603800382006
+      Track1_38: 8950381657536632512
+      Track1_36: -3566764069789493081
+      Track1_101: -8792164967340453879
+      Track1_2: -1452578788313593655
+      Track1_58: 4501786051354608360
+      Track1_104: -2680819585237511031
+      Track1_106: -8422207457228948340
+      Track1_96: 1871770095519751291
+      Track1_99: -1822176066118709204
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

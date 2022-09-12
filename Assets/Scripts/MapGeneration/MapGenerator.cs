@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    [SerializeField] private GameObject startPrefab;
-    [SerializeField] private GameObject finishPrefab;
+    [SerializeField] protected GameObject startPrefab;
+    [SerializeField] protected GameObject finishPrefab;
     [SerializeField] protected GameObject blankPrefab;
     [SerializeField] protected List<GameObject> rampsPrefabs;
     
@@ -13,7 +13,7 @@ public class MapGenerator : MonoBehaviour
 
     private protected Dictionary<string, int> prefabWidth = new Dictionary<string, int>();
     
-    private List<GameObject> instantiated = new List<GameObject>(); //TODO: replace with Queue<GameObject> ?
+    protected List<GameObject> instantiated = new List<GameObject>(); //TODO: replace with Queue<GameObject> ?
 
     public int blocksGenerated = 0;
     
@@ -24,7 +24,7 @@ public class MapGenerator : MonoBehaviour
     {
         CheckIfSerializedFieldsSet();
         CollectWidth();
-        GenerateStart();
+        //GenerateStart();
     }
 
     private protected virtual void CheckIfSerializedFieldsSet()
@@ -74,11 +74,11 @@ public class MapGenerator : MonoBehaviour
     {
         var go = Instantiate(prefab, this.transform);
         var goName = go.name;
-        Vector2 originPos = new Vector2();
-        if(LastControllerGO == null)
+        Vector2 originPos = new Vector2(this.transform.position.x,this.transform.position.y);
+        /*if(LastControllerGO == null)
             originPos = go.transform.localPosition;
         else
-            originPos = LastControllerGO.transform.localPosition;
+            originPos = LastControllerGO.transform.localPosition;*/
         Vector2 newPos = originPos;
         if (!countAsBloscksGenerated)
             newPos = new Vector2(originPos.x, originPos.y);
