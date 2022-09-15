@@ -90,6 +90,14 @@ public class UserSelector : MapGenerator
         {
             _pressed = false;
         }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            SaveMap();
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            LoadMap();
+        }
     }
 
     private void placeRamp(int selectedRamp)
@@ -98,8 +106,9 @@ public class UserSelector : MapGenerator
         Debug.Log(instantiated[instantiated.Count - 10].name);
         for (int i = 0; i < 9; i++)
         {
-            blocksGenerated -= prefabWidth[instantiated[instantiated.Count - i - 1].name];
-            DestroyImmediate(instantiated[instantiated.Count - i - 1]);
+            //blocksGenerated -= prefabWidth[instantiated[instantiated.Count - i - 1].name];
+            //DestroyImmediate(instantiated[instantiated.Count - i - 1]);
+            DestroyRoadMile(0);
         }
         InstantiateRoadMile(rampsPrefabs[selectedRamp]);
         for (int i = 1; i < 10; i++)
@@ -112,8 +121,11 @@ public class UserSelector : MapGenerator
     {
         for (int i = 0; i < 10; i++)
         {
-            blocksGenerated -= prefabWidth[instantiated[instantiated.Count - i - 1].name];
-            DestroyImmediate(instantiated[instantiated.Count-i-1]);
+            //mapData[rampsGenerated]="";
+            //rampsGenerated--;
+            //blocksGenerated -= prefabWidth[instantiated[instantiated.Count - i - 1].name];
+            //DestroyImmediate(instantiated[instantiated.Count-i-1]);
+            DestroyRoadMile(0);
         }
         InstantiateRoadMile(rampsPrefabs[selectedRamp]);
         for (int i = 1; i < 10; i++)
